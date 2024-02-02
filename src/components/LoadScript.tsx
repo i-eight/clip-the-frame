@@ -15,7 +15,7 @@ const LoadScript: FC<LoadScriptProps> = ({ src, onReady }) => {
     const script = document.createElement('script');
     script.id = id;
     script.type = 'text/javascript';
-    script.src = src;
+    script.src = import.meta.env.BASE_URL + src;
     script.async = true;
     script.onload = () => {
       onReady?.();

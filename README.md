@@ -1,10 +1,12 @@
 # Clip The Frame
 
-This tool is used to clip multiple parts of an image that are separated by frames.
+This tool clips multiple parts of an image that are separated by frames.
 
 [![Deploy static content to Pages](https://github.com/i-eight/clip-the-frame/actions/workflows/deploy.yaml/badge.svg?branch=main)](https://github.com/i-eight/clip-the-frame/actions/workflows/deploy.yaml)
 
 ## Demo
+
+
 
 ## Stack
 
@@ -14,7 +16,7 @@ This tool is used to clip multiple parts of an image that are separated by frame
 - [RadixUI Themes](https://www.radix-ui.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 
-No server required.
+Don't need a server.
 
 ## Development
 
@@ -37,4 +39,4 @@ npm run preview
 
 ## Deploy
 
-This project is automatically deployed to GitHub Pages when the main branch is updated.
+When the main branch is updated, this project is automatically deployed to GitHub Pages.

@@ -58,6 +58,7 @@ async function compressImages(
     });
     return new File([zippedContent], zipFilename);
   } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     return Promise.reject(new Error(`compress failed: ${err}`));
   }
 }
@@ -73,7 +74,7 @@ async function createImageFile(
   return new File([blob], name);
 }
 
-async function downloadFile(file: File): Promise<void> {
+function downloadFile(file: File): void {
   const url = URL.createObjectURL(file);
   const a = document.createElement('a');
   a.href = url;
@@ -157,11 +158,16 @@ const DownloadForm: FC<DownloadFormProps> = ({ canvasIds }) => {
       return;
     }
     if (canvasIds.length === 1) {
-      const file = await createImageFile(canvasIds[0], filename, start, digits);
-      await downloadFile(file);
+      const file = await createImageFile(
+        canvasIds[0]!,
+        filename,
+        start,
+        digits,
+      );
+      downloadFile(file);
     } else {
       const file = await compressImages(canvasIds, filename, start, digits);
-      await downloadFile(file);
+      downloadFile(file);
     }
   }, [canvasIds, digits, filename, start]);
 

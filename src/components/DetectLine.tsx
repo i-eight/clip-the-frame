@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+import { Box, Container, Flex, Tabs } from '@radix-ui/themes';
 import { type Mat } from 'mirada/dist/src/types/opencv';
 import React, { useCallback, useRef, useState } from 'react';
-import { Box, Container, Flex, Tabs } from '@radix-ui/themes';
-import LoadScript from './LoadScript';
 import DndFile from './DndFile';
-import SelectedImages, { SelectedImagesRef } from './SelectedImages';
 import DownloadForm from './DownloadForm';
+import LoadScript from './LoadScript';
+import SelectedImages, { SelectedImagesRef } from './SelectedImages';
 
 function detectLines(img: HTMLImageElement): { xs: number[]; ys: number[] } {
   const src = cv.imread(img);
@@ -65,6 +66,9 @@ function detectLines(img: HTMLImageElement): { xs: number[]; ys: number[] } {
     for (let i = 0; i < lines.rows; ++i) {
       const rho = lines.data32F[i * 2];
       const theta = lines.data32F[i * 2 + 1];
+      if (rho == null || theta == null) {
+        continue;
+      }
       // writeLine(rho, theta);
       const v = Math.round(trigF(theta) * rho);
       res.push(v);
@@ -92,19 +96,20 @@ function detectRect(
 ) {
   const { xs, ys } = lines;
   const xi = xs.findIndex((v) => v >= x);
-  if (xi <= 0) {
-    return;
-  }
   const yi = ys.findIndex((v) => v >= y);
-  if (yi <= 0) {
+  const x1 = xs[xi - 1];
+  const x2 = xs[xi];
+  const y1 = ys[yi - 1];
+  const y2 = ys[yi];
+  if (x1 == null || x2 == null || y1 == null || y2 == null) {
     return;
   }
 
   return {
-    x: xs[xi - 1],
-    y: ys[yi - 1],
-    width: xs[xi] - xs[xi - 1],
-    height: ys[yi] - ys[yi - 1],
+    x: x1,
+    y: y1,
+    width: x2 - x1,
+    height: y2 - y1,
   };
 }
 

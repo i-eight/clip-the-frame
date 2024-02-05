@@ -32,7 +32,7 @@ interface ImageDetail {
 
 interface ImageRowProps {
   index: number;
-  image: ImageDetail;
+  image: ImageDetail | undefined;
   onDeleteRow: () => void;
 }
 
@@ -42,6 +42,9 @@ const hideStyle: CSSProperties = {
 };
 
 const ImageRow: FC<ImageRowProps> = ({ index, image, onDeleteRow }) => {
+  if (image == null) {
+    return null;
+  }
   return (
     <Card
       style={{
@@ -92,6 +95,9 @@ const SelectedImages = forwardRef<SelectedImagesRef, SelectedImagesProps>(
       () => ({
         initialize: (id: string, height: number, width: number) => {
           const data = images[id];
+          if (data == null) {
+            return;
+          }
           data.initialized = true;
           data.height = height;
           data.width = width;
@@ -112,10 +118,14 @@ const SelectedImages = forwardRef<SelectedImagesRef, SelectedImagesProps>(
     const onDeleteRow = useCallback(
       (index: number) => () => {
         const newIds = [...canvasIds];
-        const deleted = newIds.splice(index, 1);
+        const deleted = newIds.splice(index, 1)[0];
+        if (deleted == null) {
+          return;
+        }
+
         setCanvasIds(newIds);
         const newImages = { ...images };
-        delete newImages[deleted[0]];
+        delete newImages[deleted];
         setImages(newImages);
       },
       [canvasIds, images, setCanvasIds],
@@ -143,5 +153,6 @@ const SelectedImages = forwardRef<SelectedImagesRef, SelectedImagesProps>(
     );
   },
 );
+SelectedImages.displayName = 'SelectedImages';
 
 export default SelectedImages;

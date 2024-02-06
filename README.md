@@ -6,7 +6,7 @@ This tool clips multiple parts of an image that are separated by frames.
 
 ## Demo
 
-![demo](https://github.com/i-eight/clip-the-frame/raw/main/docs/demo.gif)
+<div><video controls src="https://github.com/i-eight/clip-the-frame/assets/32570/45b470c2-35c7-469a-aeaf-52c7e2be76a9" /></div>
 
 ## Stack
 

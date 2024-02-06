@@ -8,6 +8,8 @@ This tool clips multiple parts of an image that are separated by frames.
 
 <div><video controls src="https://github.com/i-eight/clip-the-frame/assets/32570/45b470c2-35c7-469a-aeaf-52c7e2be76a9" /></div>
 
+* 動画の中の画像は[こちらの天気の子の絵コンテ](https://kadobun.jp/trial/ehb2tco22lko.html)を使わせて頂いています。
+
 ## Stack
 
 - [Vite](https://vitejs.dev/)
